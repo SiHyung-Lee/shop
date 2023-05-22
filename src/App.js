@@ -7,56 +7,52 @@ import Col from 'react-bootstrap/Col';
 import './App.css';
 import { useState } from 'react';
 import data from './data';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
     let [shoes] = useState(data);
 
     return (
         <div className="App">
+            <Routes>
+                <Route path="/" element={<div>Main page</div>} />
+                <Route path="/detail" element={<div>Detail page</div>} />
+            </Routes>
+
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home">Game Shop</Navbar.Brand>
+                    <Navbar.Brand href="#home">Shoes Shop</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#features">Features</Nav.Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link>
+                        <Nav.Link href="#features">Cart</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
             <div className="main-bg"></div>
             <Container fluid="md">
                 <Row>
-                    <Col>
-                        <img
-                            src="https://codingapple1.github.io/shop/shoes1.jpg"
-                            width="80%"
-                            alt=""
-                        />
-                        <h4>{shoes[0].title}</h4>
-                        <p>{shoes[0].content}</p>
-                    </Col>
-                    <Col>
-                        <img
-                            src="https://codingapple1.github.io/shop/shoes2.jpg"
-                            width="80%"
-                            alt=""
-                        />
-                        <h4>상품명</h4>
-                        <p>상품설명</p>
-                    </Col>
-                    <Col>
-                        <img
-                            src="https://codingapple1.github.io/shop/shoes3.jpg"
-                            width="80%"
-                            alt=""
-                        />
-                        <h4>상품명</h4>
-                        <p>상품설명</p>
-                    </Col>
+                    {shoes.map((shoe) => {
+                        return <Card shoe={shoe} />;
+                    })}
                 </Row>
             </Container>
         </div>
     );
 }
 
+function Card({ shoe }) {
+    const id = shoe.id + 1;
+    return (
+        <Col>
+            <img
+                src={`https://codingapple1.github.io/shop/shoes${id}.jpg`}
+                width="80%"
+                alt=""
+            />
+            <h4>{shoe.title}</h4>
+            <p>{shoe.content}</p>
+            <p>{shoe.price}</p>
+        </Col>
+    );
+}
 export default App;
