@@ -10,9 +10,10 @@ import data from './data';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Detail from './routes/detail';
 import Event from './routes/event';
+import axios from 'axios';
 
 function App() {
-    let [shoes] = useState(data);
+    let [shoes, setShoes] = useState(data);
     const navigate = useNavigate();
 
     return (
@@ -45,6 +46,25 @@ function App() {
                                     })}
                                 </Row>
                             </Container>
+                            <button
+                                onClick={() => {
+                                    axios
+                                        .get(
+                                            'https://codingapple1.github.io/shop/data2.json'
+                                        )
+                                        .then((data) => {
+                                            const result = data.data;
+                                            const arr = [...shoes, ...result];
+                                            console.log(arr);
+                                            setShoes(arr);
+                                        })
+                                        .catch(() => {
+                                            console.log('실패');
+                                        });
+                                }}
+                            >
+                                버튼
+                            </button>
                         </>
                     }
                 />
