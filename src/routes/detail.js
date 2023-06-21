@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
 
 function Detail(props) {
     const { id } = useParams();
@@ -7,6 +8,7 @@ function Detail(props) {
     const [count, setCount] = useState(0);
     const [pop, setPop] = useState(true);
     const [num, setNum] = useState('');
+    const [tab, setTab] = useState(0);
 
     useEffect(() => {
         setTimeout(() => {
@@ -51,6 +53,46 @@ function Detail(props) {
                     </button>
                 </div>
             </div>
+
+            <Nav defaultActiveKey="/home" as="ul">
+                <Nav.Item as="li">
+                    <Nav.Link eventKey="link-0" onClick={() => setTab(0)}>
+                        Active
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item as="li">
+                    <Nav.Link eventKey="link-1" onClick={() => setTab(1)}>
+                        Link
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item as="li">
+                    <Nav.Link eventKey="link-2" onClick={() => setTab(2)}>
+                        Link
+                    </Nav.Link>
+                </Nav.Item>
+            </Nav>
+
+            <TabContent tab={tab} />
+        </div>
+    );
+}
+
+function TabContent({ tab }) {
+    const [fade, setFade] = useState('');
+
+    useEffect(() => {
+        setTimeout(() => {
+            setFade('end');
+        }, 10);
+
+        return () => {
+            setFade('');
+        };
+    }, [tab]);
+
+    return (
+        <div className={`start ${fade}`}>
+            {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
         </div>
     );
 }

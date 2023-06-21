@@ -84,6 +84,7 @@ function App() {
 
 function Card({ shoe }) {
     const id = shoe.id + 1;
+
     return (
         <Col>
             <img
@@ -97,4 +98,5 @@ function Card({ shoe }) {
         </Col>
     );
 }
+
 export default App;
