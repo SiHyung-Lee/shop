@@ -8,13 +8,14 @@ import './App.css';
 import { useState } from 'react';
 import data from './data';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import Detail from './routes/detail';
-import Event from './routes/event';
+import Detail from './routes/Detail';
+import Event from './routes/Event';
 import axios from 'axios';
+import Cart from './routes/Cart';
 
 function App() {
     let [shoes, setShoes] = useState(data);
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
     return (
         <div className="App">
@@ -41,8 +42,8 @@ function App() {
                             <div className="main-bg"></div>
                             <Container fluid="md">
                                 <Row>
-                                    {shoes.map((shoe) => {
-                                        return <Card shoe={shoe} />;
+                                    {shoes.map((shoe, index) => {
+                                        return <Card shoe={shoe} key={index} />;
                                     })}
                                 </Row>
                             </Container>
@@ -55,7 +56,6 @@ function App() {
                                         .then((data) => {
                                             const result = data.data;
                                             const arr = [...shoes, ...result];
-                                            console.log(arr);
                                             setShoes(arr);
                                         })
                                         .catch(() => {
@@ -77,6 +77,7 @@ function App() {
                     <Route path="two" element={<p>생일기념 쿠폰받기</p>} />
                 </Route>
                 <Route path="*" element={<div>No page</div>} />
+                <Route path="/cart" element={<Cart />}></Route>
             </Routes>
         </div>
     );
@@ -84,7 +85,6 @@ function App() {
 
 function Card({ shoe }) {
     const id = shoe.id + 1;
-
     return (
         <Col>
             <img
