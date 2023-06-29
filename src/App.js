@@ -24,11 +24,14 @@ function App() {
                     <Navbar.Brand href="#home">Shoes Shop</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link onClick={() => navigate('/')}>Home</Nav.Link>
-                        <Nav.Link onClick={() => navigate('/detail')}>
+                        <Nav.Link onClick={() => navigate('/detail/1')}>
                             Detail
                         </Nav.Link>
                         <Nav.Link onClick={() => navigate('/event')}>
                             Event
+                        </Nav.Link>
+                        <Nav.Link onClick={() => navigate('/cart')}>
+                            Cart
                         </Nav.Link>
                     </Nav>
                 </Container>
@@ -43,7 +46,13 @@ function App() {
                             <Container fluid="md">
                                 <Row>
                                     {shoes.map((shoe, index) => {
-                                        return <Card shoe={shoe} key={index} />;
+                                        return (
+                                            <Card
+                                                shoe={shoe}
+                                                key={index}
+                                                index={index}
+                                            />
+                                        );
                                     })}
                                 </Row>
                             </Container>
@@ -83,18 +92,21 @@ function App() {
     );
 }
 
-function Card({ shoe }) {
+function Card({ shoe, index }) {
     const id = shoe.id + 1;
+    const idx = index + 1;
     return (
         <Col>
-            <img
-                src={`https://codingapple1.github.io/shop/shoes${id}.jpg`}
-                width="80%"
-                alt=""
-            />
-            <h4>{shoe.title}</h4>
-            <p>{shoe.content}</p>
-            <p>{shoe.price}</p>
+            <a href={`detail/${idx}`}>
+                <img
+                    src={`https://codingapple1.github.io/shop/shoes${id}.jpg`}
+                    width="80%"
+                    alt=""
+                />
+                <h4>{shoe.title}</h4>
+                <p>{shoe.content}</p>
+                <p>{shoe.price}</p>
+            </a>
         </Col>
     );
 }

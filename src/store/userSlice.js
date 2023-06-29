@@ -7,12 +7,12 @@ let user = createSlice({
         changeName(state) {
             state.name = 'park';
         },
-        increaseAge(state, action) {
+        increase(state, action) {
             state.age += action.payload;
         },
     },
 });
 
-export let { changeName, increaseAge } = user.actions;
+export let { changeName, increase } = user.actions;
 
 export default user;

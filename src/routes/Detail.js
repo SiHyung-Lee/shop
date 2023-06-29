@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
+import { addItem } from '../store/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Detail(props) {
     const { id } = useParams();
@@ -22,6 +24,11 @@ function Detail(props) {
         }
     }, [num]);
 
+    let state = useSelector((state) => {
+        return state;
+    });
+    let dispatch = useDispatch();
+
     return (
         <div className="container">
             {pop ? (
@@ -36,6 +43,7 @@ function Detail(props) {
                     />
                 </div>
                 <div className="col-md-6 mt-4">
+                    <p>{state.cart[0].name}</p>
                     <input
                         type="text"
                         onChange={(e) => {
@@ -47,7 +55,15 @@ function Detail(props) {
                     <p>{result.price}원</p>
                     <button
                         className="btn btn-danger"
-                        onClick={() => setCount(1)}
+                        onClick={() => {
+                            dispatch(
+                                addItem({
+                                    id: 3,
+                                    name: 'White and Black',
+                                    count: 0,
+                                })
+                            );
+                        }}
                     >
                         주문하기
                     </button>
