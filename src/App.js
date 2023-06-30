@@ -92,12 +92,12 @@ function App() {
     );
 }
 
-function Card({ shoe, index }) {
-    const id = shoe.id + 1;
-    const idx = index + 1;
+function Card({ shoe }) {
+    const id = shoe.id;
+
     return (
         <Col>
-            <a href={`detail/${idx}`}>
+            <Link to={`detail/${id}`}>
                 <img
                     src={`https://codingapple1.github.io/shop/shoes${id}.jpg`}
                     width="80%"
@@ -106,7 +106,7 @@ function Card({ shoe, index }) {
                 <h4>{shoe.title}</h4>
                 <p>{shoe.content}</p>
                 <p>{shoe.price}</p>
-            </a>
+            </Link>
         </Col>
     );
 }

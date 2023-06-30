@@ -37,13 +37,12 @@ function Detail(props) {
             <div className="row">
                 <div className="col-md-6">
                     <img
-                        src="https://codingapple1.github.io/shop/shoes1.jpg"
+                        src={`https://codingapple1.github.io/shop/shoes${result.id}.jpg`}
                         width="100%"
                         alt=""
                     />
                 </div>
                 <div className="col-md-6 mt-4">
-                    <p>{state.cart[0].name}</p>
                     <input
                         type="text"
                         onChange={(e) => {
@@ -58,9 +57,9 @@ function Detail(props) {
                         onClick={() => {
                             dispatch(
                                 addItem({
-                                    id: 3,
-                                    name: 'White and Black',
-                                    count: 0,
+                                    id: result.id,
+                                    name: result.title,
+                                    count: 1,
                                 })
                             );
                         }}
