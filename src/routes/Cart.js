@@ -50,7 +50,11 @@ function Cart() {
                                     </button>
                                     <button
                                         onClick={() => {
-                                            dispatch(removeCount(item.id));
+                                            if (item.count <= 1) {
+                                                dispatch(removeItem(item.id));
+                                            } else {
+                                                dispatch(removeCount(item.id));
+                                            }
                                         }}
                                     >
                                         -
