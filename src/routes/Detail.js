@@ -24,6 +24,16 @@ function Detail(props) {
         }
     }, [num]);
 
+    useEffect(() => {
+        let arr = localStorage.getItem('watched');
+
+        arr = JSON.parse(arr);
+        arr.push(result.id);
+        arr = new Set(arr);
+        arr = Array.from(arr);
+        localStorage.setItem('watched', JSON.stringify(arr));
+    }, []);
+
     let state = useSelector((state) => {
         return state;
     });

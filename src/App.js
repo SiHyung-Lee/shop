@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -5,7 +6,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
-import { useState } from 'react';
 import data from './data';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Detail from './routes/Detail';
@@ -14,11 +14,18 @@ import axios from 'axios';
 import Cart from './routes/Cart';
 
 function App() {
+    useEffect(() => {
+        let arr = localStorage.getItem('watched');
+        console.log(JSON.parse(arr));
+        if (JSON.parse(arr) === []) {
+            localStorage.setItem('watched', JSON.stringify([]));
+        }
+    }, []);
+
     let obj = { name: 'kim' };
 
     localStorage.setItem('data', JSON.stringify(obj));
     let getObj = localStorage.getItem('data');
-    console.log(getObj);
 
     let [shoes, setShoes] = useState(data);
     let navigate = useNavigate();
