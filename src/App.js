@@ -12,11 +12,12 @@ import Detail from './routes/Detail';
 import Event from './routes/Event';
 import axios from 'axios';
 import Cart from './routes/Cart';
+import { useQuery } from 'react-query';
 
 function App() {
     useEffect(() => {
         let arr = localStorage.getItem('watched');
-        console.log(JSON.parse(arr));
+
         if (JSON.parse(arr) === []) {
             localStorage.setItem('watched', JSON.stringify([]));
         }
@@ -30,9 +31,18 @@ function App() {
     let [shoes, setShoes] = useState(data);
     let navigate = useNavigate();
 
+    let result = useQuery('jdata', () => {
+        return axios
+            .get('https://codingapple1.github.io/userdata.json')
+            .then((a) => {
+                console.log('요청');
+                return a.data;
+            });
+    });
+
     return (
         <div className="App">
-            <Navbar bg="dark" variant="dark">
+            <Navbar bg="light" variant="light">
                 <Container>
                     <Navbar.Brand href="#home">Shoes Shop</Navbar.Brand>
                     <Nav className="me-auto">
@@ -46,6 +56,12 @@ function App() {
                         <Nav.Link onClick={() => navigate('/cart')}>
                             Cart
                         </Nav.Link>
+                    </Nav>
+                    <Nav className="ms-auto">
+                        반가워요
+                        {result.isLoading && '로딩 중'}
+                        {result.isError && '에러'}
+                        {result.data && result.data.name}
                     </Nav>
                 </Container>
             </Navbar>
